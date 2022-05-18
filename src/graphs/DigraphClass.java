@@ -1,37 +1,38 @@
 package graphs;
 
-import org.w3c.dom.Node;
+public class DigraphClass extends AnyGraphClass {
 
-public class DigraphClass<L> extends AnyGraphClass<L> implements DiGraph<L> {
+
+    public DigraphClass(int nNodes) {
+        super(nNodes);
+    }
 
 
     @Override
-    public int inDegree(Node node) {
-        return 0;
+    public void addEdge(int node1, int node2, int label) {
+        succ[node1].add(node2);
+        ant[node2].add(node1);
+        this.nEdges++;
     }
 
-    @Override
-    public int outDegree(Node node) {
-        return 0;
+    public int inDegree(int node){
+        if(this.nodes.contains(node))
+            return ant[node].size();
+        return -1;
     }
 
-    @Override
-    public Iterable<Node> inAdjacentNodes(Node node) {
-        return null;
+    public int outDegree(int node){
+        if(this.nodes.contains(node))
+            return succ[node].size();
+        return -1;
     }
 
-    @Override
-    public Iterable<Node> outAdjacentNodes(Node node) {
-        return null;
+    public Iterable<Integer> inAdjacentNodes(int node){
+        return this.ant[node];
     }
 
-    @Override
-    public Iterable<Edge<L>> inIncidentEdges(Node node) {
-        return null;
+    public Iterable<Integer> outAdjacentNodes(int node){
+        return this.succ[node];
     }
 
-    @Override
-    public Iterable<Edge<L>> outIncidentEdges(Node node) {
-        return null;
-    }
 }

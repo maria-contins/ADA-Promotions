@@ -1,46 +1,33 @@
-import graphs.AnyGraph;
-import graphs.Digraph;
-import graphs.DigraphClass;
 import promotions.PromotionSolver;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
-        AnyGraph<Integer> graph = new DigraphClass<Integer>();
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 
-        try {
-        String[] line = in.readLine().split(" ");
+        String input = in.readLine();
+        String[] tokens = input.split(" ");
 
-        int intervalEndpointA = Integer.parseInt(line[0]);
-        int intervalEndpointB = Integer.parseInt(line[1]);
-        int employees = Integer.parseInt(line[2]);
-        int precedence = Integer.parseInt(line[3]);
+        int endpoint1, endpoint2, nEmployees, precedences;
 
+        endpoint1 = Integer.parseInt(tokens[0]);
+        endpoint2 = Integer.parseInt(tokens[1]);
+        nEmployees = Integer.parseInt(tokens[2]);
+        precedences = Integer.parseInt(tokens[3]);
 
-        for (int i = 0; i < precedence; i++) {
+        PromotionSolver pClass = new PromotionSolver(endpoint1, endpoint2, nEmployees);
 
+        for(int i=0;i<precedences;i++){
+            input = in.readLine();
+            tokens = input.split(" ");
+
+            pClass.addPrecedence(Integer.parseInt(tokens[0]), Integer.parseInt(tokens[1]));
         }
 
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        PromotionSolver ps = new PromotionSolver();
-        ps.calculateSolution();
-
-        // output
-        System.out.println(pr.promotedIfA());
-        System.out.println(pr.promotedIfB());
-        System.out.println(pr.neverPromoted());
-
-
+        System.out.println();
     }
 }
-
