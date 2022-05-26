@@ -7,27 +7,27 @@ public class AnyGraphClass implements AnyGraph {
 
     protected int nNodes;
     protected int nEdges;
-    protected List<Integer> nodes;
-    protected List<Integer>[] ant, succ;
+    public List<Integer> nodes;
+    protected List<Edge> edges;
+    protected List<Integer>[] adjacent;
 
     @SuppressWarnings("unchecked")
     public AnyGraphClass(int nNodes){
         this.nNodes = nNodes;
         this.nEdges = 0;
-        this.ant = new LinkedList[nNodes];
-        this.succ = new LinkedList[nNodes];
+        this.adjacent = new LinkedList[nNodes];
+        this.edges = new LinkedList<>();
+        this.nodes = new LinkedList<>();
 
-        addNodes(this.nNodes);
+        addNodes(nNodes);
     }
 
     private void addNodes(int nNodes){
         for(int i=0;i<nNodes;i++){
             nodes.add(i);
-            ant[i] = new LinkedList<>();
-            succ[i] = new LinkedList<>();
+            adjacent[i] = new LinkedList<>();
         }
     }
-
 
     @Override
     public int numNodes() {
@@ -41,21 +41,26 @@ public class AnyGraphClass implements AnyGraph {
 
     @Override
     public int aNode() {
-        return 0;   ///TODO: WHY DO WE NEED THIS?
+        return (int) (Math.random() * ((nNodes) + 1));
     }
 
     @Override
-    public void addEdge(int node1, int node2, int label) { // label?
+    public void addEdge(int node1, int node2, int label) { // label is cost
         this.nEdges++;
-        ant[node1].add(node2);
-        ant[node2].add(node1);
-        succ[node1].add(node2);
-        succ[node2].add(node1);
+
+        adjacent[node1].add(node2);
+        adjacent[node2].add(node1);
+
+        Edge edge = new EdgeClass(node1, node2, label);
+        edges.add(edge);
     }
 
     @Override
     public boolean edgeExists(int node1, int node2) {
-        return (ant[node1].contains(node2) || ant[node2].contains(node1) || succ[node1].contains(node2) || succ[node2].contains(node1));
+        if(nodes.contains(node1) && nodes.contains(node2))
+            return (adjacent[node1].contains(node2));
+        else
+            return false;
     }
 
     @Override
@@ -65,8 +70,8 @@ public class AnyGraphClass implements AnyGraph {
 
     @Override
     public Iterable<Edge> edges() {
-        return null;
+        return edges;
     }
 
-
 }
+
