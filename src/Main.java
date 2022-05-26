@@ -23,8 +23,6 @@ public class Main {
         nEmployees = Integer.parseInt(tokens[2]);
         precedences = Integer.parseInt(tokens[3]);
 
-        PromotionsSolver pClass = new PromotionsSolver(nEmployees, endpointA, endpointB);
-
         AnyGraph graph = new DigraphClass(nEmployees);
 
         for(int i=0;i<precedences;i++){
@@ -34,6 +32,7 @@ public class Main {
             graph.addEdge(Integer.parseInt(tokens[0]), Integer.parseInt(tokens[1]), 0);
         }
 
+        PromotionsSolver pClass = new PromotionsSolver(nEmployees, endpointA, endpointB, graph);
         pClass.getSolution();
 
         System.out.println(pClass.promotedIfA());
