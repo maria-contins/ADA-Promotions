@@ -35,7 +35,7 @@ public class PromotionsSolver {
         Queue<Integer> ready = new PriorityQueue<>(); //Fila com nós com 0 ant.
         for (int v : graph.nodes()) {
             inDegree[v] = graph.inDegree(v);
-            if (inDegree[v] == 0 && !ready.contains(v)) {
+            if (inDegree[v] == 0) {
                 ready.add(v);
                 if (promosA > 0) {
                     promotedIfA++;

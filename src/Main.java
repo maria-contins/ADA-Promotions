@@ -39,7 +39,7 @@ public class Main {
             System.out.println(pClass.promotedIfA());
             System.out.println(pClass.promotedIfB());
             System.out.println(pClass.neverPromoted());
-            
+
         } catch (Exception ignored) {}
     }
 }
