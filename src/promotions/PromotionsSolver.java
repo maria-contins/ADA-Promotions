@@ -58,13 +58,17 @@ public class PromotionsSolver {
                         promotedIfB++;
                         promosB--;
                     }
-                    if (promosA > 0 && ready.size()==1) { // need to fix
-                        promotedIfA++;
-                        promosA--;
-                    }
                 }
             }
-
+            int r = 0;
+            for (int v : ready) {
+                if (inDegree[v] == 0)
+                    r++;
+            }
+            if (promosA > 0 && promosA >= r) {
+                promotedIfA += r;
+            }
+            promosA -= r;
         } while (!ready.isEmpty());
         return permutation;
     }
